@@ -1,0 +1,27 @@
+name: ghost
+version: '1.0.0-alpha.2+git'
+summary: A simple, powerful publishing platform
+description: |
+  Ghost is a free and open source blogging platform written in JavaScript
+  and distributed under the MIT License, designed to simplify the process
+  of online publishing for individual bloggers as well as online publications.
+  .
+  https://ghost.org
+
+grade: devel # must be 'stable' to release into candidate/stable channels
+confinement: devmode # use 'strict' once you have the right plugs and slots
+
+apps:
+  ghost:
+    command: ghost.sh
+    daemon: simple
+    plugs: [network, network-bind, log-observe]
+
+parts:
+  ghost:
+    plugin: nodejs
+    source: .
+  launcher:
+    plugin: copy
+    files:
+      ghost.sh: ghost.sh
